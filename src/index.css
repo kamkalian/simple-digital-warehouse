@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.MuiBadge-badge{
+  transform: scale(3) translate(-20%, 20%)!important;
+}
+.MuiBadge-root{
+  width: 100%;
+}
