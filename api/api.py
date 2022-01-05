@@ -1,7 +1,7 @@
 import time
 from flask import Flask, request
 import pymongo
-
+import json
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["store_db"]
@@ -20,7 +20,7 @@ x = mycol.insert_one({
 
 #product_list = [d for d in mycol.find()]
 product_list = mycol.find()
-print(product_list)
+#print(product_list)
 for d in mycol.find():
     print(d)
 
@@ -91,6 +91,15 @@ def insert_new_product_from_barcode(barcode):
     'product_name': product_name
     })
     return {'success': True}
+
+
+@app.route('/product_list/', methods=['POST'])
+def product_list():
+    """Route /product_new
+    """
+    x = mycol.find({},{ "_id":0, "barcode": 1, "count": 1, "product_name": 1 })
+
+    return json.dumps([d for d in x])
 
 
 def _update_product(barcode, step):

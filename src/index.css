@@ -12,9 +12,35 @@ code {
     monospace;
 }
 
-.MuiBadge-badge{
+.MuiBadge-badge.main-badge{
   transform: scale(3) translate(-20%, 20%)!important;
 }
+
+.MuiBadge-badge.list-badge{
+  transform:  translate(-20%, 20%)!important;
+  font-weight: bolder;
+}
+
 .MuiBadge-root{
   width: 100%;
+}
+
+.badge-blue{
+  background-color: blue;
+  color: #fff;
+}
+
+.badge-green{
+  background-color: rgb(102, 192, 0);
+  color: #fff;
+}
+
+.badge-orange{
+  background-color: rgb(230, 122, 0);
+  color: #fff;
+}
+
+.badge-red{
+  background-color: rgb(197, 0, 0);
+  color: #fff;
 }

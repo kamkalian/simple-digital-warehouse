@@ -5,6 +5,10 @@ import BarcodeField from './barcode/BarcodeField';
 import Selector from './barcode/Selector';
 import { Container, Grid } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
+import ItemListSideBar from './ItemListSideBar';
+import Drawer from '@material-ui/core/Drawer';
+import Button from '@material-ui/core/Button';
+import ListIcon from '@material-ui/icons/List';
 
 export default class MainWrapper extends React.Component{
 
@@ -20,7 +24,8 @@ export default class MainWrapper extends React.Component{
             actionSelected: false,
             actionName: '',
             new_product_name: '',
-            new_product_saved: false
+            new_product_saved: false,
+            itemListSideBarState: false
         };
         this.barcodeInput = React.createRef();
         this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -120,7 +125,11 @@ export default class MainWrapper extends React.Component{
     handleNameChange(event){
         this.setState({
             new_product_name: event.target.value
-        })
+        });
+    }
+
+    handleSideBarCloseButtonClick(event){
+        this.setState({itemListSideBarState: false });
     }
 
     render(){
@@ -131,7 +140,13 @@ export default class MainWrapper extends React.Component{
 
         const alertStyles = {
             fontWeight: 'bold'
-        }
+        };
+
+        const toggleDrawer = (open) => (
+            event
+          ) => {        
+            this.setState({itemListSideBarState: open });
+          };
 
         // Alert Message ermitteln.
         let alertMessage = '';
@@ -202,8 +217,23 @@ export default class MainWrapper extends React.Component{
                     <Grid item xs={12}>
                         {productItem}
                     </Grid>
-                </Grid>      
+                    <Grid item xs= {12}>  
+                        <Button
+                            variant="contained"
+                            startIcon={<ListIcon />}
+                            onClick={toggleDrawer(true)}
+                        >
+                            Übersicht
+                        </Button>
+                    </Grid>
+                </Grid>   
+                
+                <Drawer anchor='right' open={this.state['itemListSideBarState']} onClose={toggleDrawer(false)}>
+                    <ItemListSideBar 
+                    handleSideBarCloseButtonClick={this.handleSideBarCloseButtonClick.bind(this)}/>
+                </Drawer>
             </Container>
+            
         );
     }
 }
